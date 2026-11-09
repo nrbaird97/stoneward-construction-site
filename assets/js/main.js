@@ -189,24 +189,29 @@
     var planImage = escapeHtml(plan.plan || "");
     var name = escapeHtml(plan.name);
     var requestUrl = "contact.html?plan=" + encodeURIComponent(plan.name);
+    var detailUrl = "plan.html?plan=" + encodeURIComponent(plan.slug || "");
 
     return [
       '<article class="plan-card" data-category="' + escapeHtml(plan.category || "") + '" data-beds-min="' + range.min + '" data-beds-max="' + range.max + '" data-sqft="' + Number(plan.sqft) + '">',
       '  <figure class="ph ' + photoClass(index) + ' plan-card__media" data-photo="' + photo + '">',
-      '    <img class="plan-card__photo" src="assets/img/' + photo + '" alt="Irontown Modular ' + name + ' exterior rendering" loading="lazy" onerror="this.hidden=true">',
-      planImage ? '    <img class="plan-card__plan" src="assets/img/' + planImage + '" alt="Irontown Modular ' + name + ' floor plan" loading="lazy" onerror="this.hidden=true">' : '',
+      '    <a class="plan-card__photo-link" href="' + detailUrl + '" tabindex="-1" aria-hidden="true"></a>',
+      '    <img class="plan-card__photo" src="assets/img/' + photo + '" alt="' + name + ' exterior rendering" loading="lazy" onerror="this.hidden=true">',
+      planImage ? '    <img class="plan-card__plan" src="assets/img/' + planImage + '" alt="' + name + ' floor plan" loading="lazy" onerror="this.hidden=true">' : '',
       '    <figcaption>' + name + '</figcaption>',
       planImage ? '    <button class="plan-card__toggle" type="button" data-plan-toggle aria-pressed="false">Floor plan</button>' : '',
       '  </figure>',
       '  <div class="plan-card__body">',
-      '    <h3>' + name + '</h3>',
+      '    <h3><a class="plan-card__link" href="' + detailUrl + '">' + name + '</a></h3>',
       '    <p class="plan-size"><strong>' + sqft + '</strong> sq ft' + (plan.footprint ? ' <span>(' + escapeHtml(plan.footprint) + ')</span>' : '') + '</p>',
       '    <ul class="plan-specs">',
       '      <li><strong>' + escapeHtml(plan.beds) + '</strong> ' + bedsNoun + '</li>',
       '      <li><strong>' + escapeHtml(plan.baths) + '</strong> ' + bathsNoun + '</li>',
       '    </ul>',
       plan.type ? '    <p class="plan-type">' + escapeHtml(plan.type) + '</p>' : '',
-      '    <a class="btn btn--primary btn--block" href="' + requestUrl + '">Request pricing</a>',
+      '    <div class="plan-card__actions">',
+      '      <a class="btn btn--primary" href="' + detailUrl + '">View details</a>',
+      '      <a class="plan-card__quote" href="' + requestUrl + '">Request pricing</a>',
+      '    </div>',
       '  </div>',
       '</article>'
     ].join("\n");
@@ -460,8 +465,79 @@
     button.textContent = showing ? "Photo" : "Floor plan";
   });
 
+  function initPlanDetail() {
+    var root = $("[data-plan-detail]");
+    if (!root) {
+      return;
+    }
+    var slug = new URLSearchParams(window.location.search).get("plan");
+    var plan = plans.find(function (item) { return item.slug === slug; });
+    if (!plan) {
+      return;
+    }
+
+    var sqft = Number(plan.sqft).toLocaleString("en-US");
+    document.title = plan.name + " Floor Plan | Stoneward Construction";
+    $("[data-plan-name]", root).textContent = plan.name;
+    $("[data-plan-series]", root).textContent = (plan.series && plan.series !== plan.name ? plan.series + " series" : (plan.category === "home" ? "Home" : "ADU")) + " \u00B7 " + sqft + " sq ft";
+    $("[data-plan-about]", root).textContent = plan.about || "";
+    $("[data-plan-cta]", root).setAttribute("href", "contact.html?plan=" + encodeURIComponent(plan.name));
+
+    var facts = [
+      ["Living area", sqft + " sq ft"],
+      ["Footprint", plan.footprint || ""],
+      ["Bedrooms", plan.beds],
+      ["Bathrooms", plan.baths],
+      ["Style", plan.type || ""],
+      ["Best suited for", plan.category === "home" ? "A primary home on its own lot" : "A backyard ADU, guest house or small home"]
+    ];
+    $("[data-plan-facts]", root).innerHTML = facts.filter(function (fact) { return fact[1]; }).map(function (fact) {
+      return "<div><dt>" + escapeHtml(fact[0]) + "</dt><dd>" + escapeHtml(fact[1]) + "</dd></div>";
+    }).join("");
+
+    var shots = (plan.gallery && plan.gallery.length ? plan.gallery.map(function (file) { return "assets/img/plans/" + file; }) : ["assets/img/" + plan.photo])
+      .map(function (src, index) { return { src: src, label: plan.name + " photo " + (index + 1), plan: false }; });
+    if (plan.plan) {
+      shots.push({ src: "assets/img/" + plan.plan, label: plan.name + " floor plan", plan: true });
+    }
+    var main = $("[data-plan-main]", root);
+    var thumbs = $("[data-plan-thumbs]", root);
+    function select(index) {
+      main.src = shots[index].src;
+      main.alt = shots[index].label;
+      main.parentNode.classList.toggle("is-plan", shots[index].plan);
+      $$("button", thumbs).forEach(function (button, i) {
+        button.setAttribute("aria-pressed", i === index ? "true" : "false");
+      });
+    }
+    thumbs.innerHTML = shots.map(function (shot, index) {
+      return '<button type="button" class="plan-gallery__thumb' + (shot.plan ? " is-plan" : "") + '" data-shot="' + index + '" aria-label="Show ' + escapeHtml(shot.label) + '"><img src="' + shot.src + '" alt="" loading="lazy">' + (shot.plan ? "<span>Floor plan</span>" : "") + "</button>";
+    }).join("");
+    thumbs.addEventListener("click", function (event) {
+      var button = event.target.closest("[data-shot]");
+      if (button) {
+        select(Number(button.getAttribute("data-shot")));
+      }
+    });
+    select(0);
+
+    var related = plans.filter(function (item) { return item !== plan && item.series === plan.series; });
+    if (related.length < 3) {
+      plans.filter(function (item) { return item !== plan && related.indexOf(item) === -1 && item.category === plan.category; })
+        .sort(function (a, b) { return Math.abs(a.sqft - plan.sqft) - Math.abs(b.sqft - plan.sqft); })
+        .slice(0, 4 - related.length)
+        .forEach(function (item) { related.push(item); });
+    }
+    var wrap = $("[data-plan-related-wrap]");
+    if (wrap && related.length) {
+      wrap.hidden = false;
+      $("[data-plan-related]").innerHTML = related.slice(0, 4).map(planCard).join("\n");
+    }
+  }
+
   applyContactDetails();
   injectBusinessSchema();
+  initPlanDetail();
   initMenu();
   markCurrentNav();
   initFeaturedPlans();
