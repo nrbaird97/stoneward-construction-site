@@ -39,7 +39,7 @@ These came from Irontown Modular's dealer drive (marketing resources, feature sh
 | `series-designer.jpg`, `series-modern.jpg`, `series-rustic.jpg`, `series-balance.jpg` | Irontown finish series logos. |
 | `irontown-logo-light.png`, `irontown-logo-dark.png` | Irontown Modular logo for the dark and light themes. |
 
-The remaining seven plan photos and `hero.jpg` are still empty placeholders.
+From irontownmodular.com model pages: every plan has an exterior rendering (`<plan>.jpg`) and a floor plan drawing (`<plan>-plan.jpg`, shown on hover on `adus.html`). The home page hero uses Irontown's Bunkhouse renderings: `hero-night.jpg` in dark mode and `hero-day.jpg` in light mode. `hero.jpg` is no longer used.
 
 ## Notes
 

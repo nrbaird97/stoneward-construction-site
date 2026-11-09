@@ -2063,12 +2063,13 @@ img { filter: none; }
 .hero__bg {
   position: absolute;
   inset: 0;
-  background-color: #1A1712;
-  background-image: url("../img/hero.jpg");
+  background-color: #0B0B0C;
+  background-image: url("../img/hero-night.jpg");
   background-size: cover;
-  background-position: 62% 58%;
+  background-position: 58% 60%;
   background-repeat: no-repeat;
 }
+[data-theme="light"] .hero__bg { background-image: url("../img/hero-day.jpg"); background-position: 64% 55%; }
 .hero--scene::before {
   content: "";
   position: absolute;
@@ -2128,11 +2129,60 @@ img { filter: none; }
   font-size: 0.82rem;
 }
 
-.plan-card__media img[src$="cabana-500.jpg"],
-.plan-card__media img[src$="torrey-flats.jpg"],
-.plan-card__media img[src$="morada-1000.jpg"] {
+.ph .plan-card__plan {
+  z-index: 2;
   background: #FFFFFF;
   object-fit: contain;
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.plan-card__media.is-plan .plan-card__plan {
+  opacity: 1;
+}
+
+@media (hover: hover) {
+  .plan-card__media:hover .plan-card__plan {
+    opacity: 1;
+  }
+}
+
+.plan-card__media figcaption {
+  z-index: 3;
+}
+
+.plan-card__toggle {
+  position: absolute;
+  z-index: 3;
+  right: 14px;
+  bottom: 14px;
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  background: rgba(11, 11, 12, 0.72);
+  color: #F2ECDD;
+  font: inherit;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.plan-card__toggle:hover,
+.plan-card__toggle[aria-pressed="true"] {
+  border-color: #D4AF37;
+  background: #D4AF37;
+  color: #0B0B0C;
+}
+
+.plan-card__toggle:focus-visible {
+  outline: 2px solid #D4AF37;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ph .plan-card__plan { transition: none; }
 }
 
 .series-grid {
@@ -2247,4 +2297,10 @@ img { filter: none; }
 
 @media (min-width: 900px) {
   .steps.steps--milestones { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+.plan-card__media figcaption { transition: opacity 220ms ease; }
+.plan-card__media.is-plan figcaption { opacity: 0; }
+@media (hover: hover) {
+  .plan-card__media:hover figcaption { opacity: 0; }
 }

@@ -186,6 +186,7 @@
     var bedsNoun = countLabel(plan.beds, "bed", "beds");
     var bathsNoun = countLabel(plan.baths, "bath", "baths");
     var photo = escapeHtml(plan.photo || "");
+    var planImage = escapeHtml(plan.plan || "");
     var name = escapeHtml(plan.name);
     var requestUrl = "contact.html?plan=" + encodeURIComponent(plan.name);
     var details = [plan.type, plan.footprint ? plan.footprint + " footprint" : ""].filter(Boolean).join(" \u00B7 ");
@@ -193,8 +194,10 @@
     return [
       '<article class="plan-card" data-beds-min="' + range.min + '" data-beds-max="' + range.max + '" data-sqft="' + Number(plan.sqft) + '">',
       '  <figure class="ph ' + photoClass(index) + ' plan-card__media" data-photo="' + photo + '">',
-      '    <img src="assets/img/' + photo + '" alt="Irontown Modular ' + name + ' floor plan" loading="lazy" onerror="this.hidden=true">',
+      '    <img class="plan-card__photo" src="assets/img/' + photo + '" alt="Irontown Modular ' + name + ' exterior rendering" loading="lazy" onerror="this.hidden=true">',
+      planImage ? '    <img class="plan-card__plan" src="assets/img/' + planImage + '" alt="Irontown Modular ' + name + ' floor plan" loading="lazy" onerror="this.hidden=true">' : '',
       '    <figcaption>' + name + '</figcaption>',
+      planImage ? '    <button class="plan-card__toggle" type="button" data-plan-toggle aria-pressed="false">Floor plan</button>' : '',
       '  </figure>',
       '  <div class="plan-card__body">',
       '    <h3>' + name + '</h3>',
@@ -393,6 +396,18 @@
       window.location.href = href;
     });
   }
+
+  // Tap or click the button to pin the floor plan. Hover shows it on desktop.
+  document.addEventListener("click", function (event) {
+    var button = event.target.closest("[data-plan-toggle]");
+    if (!button) {
+      return;
+    }
+    var media = button.closest(".plan-card__media");
+    var showing = media.classList.toggle("is-plan");
+    button.setAttribute("aria-pressed", showing ? "true" : "false");
+    button.textContent = showing ? "Photo" : "Floor plan";
+  });
 
   applyContactDetails();
   injectBusinessSchema();
