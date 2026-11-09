@@ -2115,9 +2115,16 @@ img { filter: none; }
   color: rgba(255, 255, 255, 0.75); font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
 }
 @media (max-width: 720px) {
-  .hero--scene { min-height: 86vh; }
-  .hero--scene::before { background: linear-gradient(0deg, rgba(5, 8, 14, 0.82) 0%, rgba(5, 8, 14, 0.45) 55%, rgba(5, 8, 14, 0.15) 100%); }
-  .hero__content { padding-top: 90px; padding-bottom: 44px; }
+  /* Phone: the whole Bunkhouse shows in its own image block, text sits below it on dark. */
+  .hero--scene { display: block; min-height: 0; }
+  .hero__bg { position: relative; inset: auto; height: 82vw; max-height: 420px; background-position: 42% 50%; }
+  [data-theme="light"] .hero__bg { background-position: 42% 50%; }
+  .hero--scene::before {
+    inset: 0 0 auto 0; height: 82vw; max-height: 420px;
+    background: linear-gradient(180deg, rgba(5, 8, 14, 0) 62%, #0B0B0C 100%);
+  }
+  .hero__content { margin-top: -26px; padding-top: 0; padding-bottom: 44px; }
+  .hero__caption { top: calc(min(82vw, 420px) - 30px); right: 16px; bottom: auto; }
 }
 
 
