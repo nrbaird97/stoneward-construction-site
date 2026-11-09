@@ -2063,20 +2063,23 @@ img { filter: none; }
 .hero__bg {
   position: absolute;
   inset: 0;
-  background-image: url("../img/hero.jpg"), url("../img/hero-night.svg");
+  background-color: #1A1712;
+  background-image: url("../img/hero.jpg");
   background-size: cover;
-  background-position: center bottom;
+  background-position: 62% 58%;
   background-repeat: no-repeat;
 }
-[data-theme="light"] .hero__bg { background-image: url("../img/hero.jpg"), url("../img/hero-day.svg"); }
 .hero--scene::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 1;
+  width: auto;
+  height: auto;
+  border-radius: 0;
   background:
-    linear-gradient(90deg, rgba(5, 8, 14, 0.78) 0%, rgba(5, 8, 14, 0.5) 38%, rgba(5, 8, 14, 0) 70%),
-    linear-gradient(0deg, rgba(5, 8, 14, 0.55) 0%, rgba(5, 8, 14, 0) 45%);
+    linear-gradient(90deg, rgba(5, 8, 14, 0.74) 0%, rgba(5, 8, 14, 0.46) 40%, rgba(5, 8, 14, 0) 72%),
+    linear-gradient(0deg, rgba(5, 8, 14, 0.6) 0%, rgba(5, 8, 14, 0) 48%);
 }
 .hero__content {
   position: relative;
