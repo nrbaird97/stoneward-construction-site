@@ -5,14 +5,14 @@
   <script>try{var t=localStorage.getItem("sw-theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}</script>
   <meta name="theme-color" content="#0B0B0C">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ADU Floor Plans | Stoneward Construction</title>
-  <meta name="description" content="Compare 10 Irontown Modular ADU floor plans sold by Stoneward Construction, from 497 to 1,002 square feet. Filter by bedrooms and size, then request pricing.">
+  <title>ADU and Home Floor Plans | Stoneward Construction</title>
+  <meta name="description" content="Browse 33 factory-built ADU and home floor plans from Stoneward Construction, from 200 to 2,198 square feet. Filter by type, bedrooms and size, then request pricing.">
   <link rel="canonical" href="https://www.stonewardconstruction.com/adus.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Stoneward Construction">
   <meta property="og:image" content="https://www.stonewardconstruction.com/assets/img/og-image.png">
-  <meta property="og:title" content="ADU Floor Plans | Stoneward Construction">
-  <meta property="og:description" content="Compare 10 Irontown Modular ADU floor plans sold by Stoneward Construction, from 497 to 1,002 square feet. Filter by bedrooms and size, then request pricing.">
+  <meta property="og:title" content="ADU and Home Floor Plans | Stoneward Construction">
+  <meta property="og:description" content="Browse 33 factory-built ADU and home floor plans from Stoneward Construction, from 200 to 2,198 square feet. Filter by type, bedrooms and size, then request pricing.">
   <meta property="og:url" content="https://www.stonewardconstruction.com/adus.html">
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <link rel="stylesheet" href="assets/css/styles.css">
@@ -60,28 +60,35 @@
   <div class="shell">
     <p class="eyebrow">Floor plans</p>
     <h1>Find the plan that fits your lot.</h1>
-    <p class="lede">Ten factory-built plans in seven series, from a 497 sq ft one-bedroom to a 1,002 sq ft two-bedroom. Each is available in <a href="#finishes">four finish series</a>. Pricing is confirmed in your written quote. Hover a photo, or tap Floor plan, to see the layout.</p>
+    <p class="lede">Thirty-three factory-built plans in 17 series, from a 200 sq ft studio to a 2,198 sq ft family home. Each is available in <a href="#finishes">four finish series</a>. Pricing is confirmed in your written quote. Hover a photo, or tap Floor plan, to see the layout.</p>
   </div>
 </section>
 
 <section class="section section--flush-top">
   <div class="shell">
     <div class="plan-toolbar">
+      <div class="filter-group" role="group" aria-label="Filter plans by type">
+        <span class="filter-group__label">Type</span>
+        <button class="chip" type="button" data-filter-type="all" aria-pressed="true">All</button>
+        <button class="chip" type="button" data-filter-type="adu" aria-pressed="false">ADUs</button>
+        <button class="chip" type="button" data-filter-type="home" aria-pressed="false">Homes</button>
+      </div>
       <div class="filter-group" role="group" aria-label="Filter plans by bedrooms">
         <span class="filter-group__label">Bedrooms</span>
         <button class="chip" type="button" data-filter-beds="all" aria-pressed="true">All</button>
         <button class="chip" type="button" data-filter-beds="1" aria-pressed="false">1 bed</button>
         <button class="chip" type="button" data-filter-beds="2" aria-pressed="false">2 bed</button>
+        <button class="chip" type="button" data-filter-beds="3" aria-pressed="false">3+ bed</button>
       </div>
       <div class="filter-group" role="group" aria-label="Filter plans by size">
         <span class="filter-group__label">Size</span>
         <button class="chip" type="button" data-filter-size="all" aria-pressed="true">All</button>
         <button class="chip" type="button" data-filter-size="under600" aria-pressed="false">Under 600 sq ft</button>
-        <button class="chip" type="button" data-filter-size="600to800" aria-pressed="false">600-800 sq ft</button>
-        <button class="chip" type="button" data-filter-size="800plus" aria-pressed="false">800+ sq ft</button>
+        <button class="chip" type="button" data-filter-size="600to1000" aria-pressed="false">600 to 1,000 sq ft</button>
+        <button class="chip" type="button" data-filter-size="1000plus" aria-pressed="false">Over 1,000 sq ft</button>
       </div>
     </div>
-    <p class="plan-count" data-plan-count aria-live="polite">All 10 plans</p>
+    <p class="plan-count" data-plan-count aria-live="polite">All 33 plans</p>
     <div class="series-list" data-plans-grid></div>
     <p class="empty-state" data-plans-empty hidden>No plans match those filters. Try a wider size range or another bedroom count.</p>
     <p class="plans-note">All plans, renderings and floor plan drawings are Irontown Modular's, and renderings may show optional upgrades. Availability, pricing and delivery are confirmed in your written quote. Bedroom filters show plans available with that bedroom count.</p>
@@ -102,49 +109,53 @@
       <article class="series-card">
         <img src="assets/img/series-designer.jpg" alt="Irontown Designer Series logo" width="480" height="226" loading="lazy">
         <div class="series-card__body">
-          <h3>Designer Series</h3>
+          <h3><a class="series-card__link" href="finishes.html#designer">Designer Series</a></h3>
           <ul class="check-list">
             <li>Smart design</li>
             <li>Your choices</li>
             <li>Your values</li>
           </ul>
+          <p class="series-card__more">See standard features and upgrades</p>
         </div>
       </article>
       <article class="series-card">
         <img src="assets/img/series-modern.jpg" alt="Irontown Modern Series logo" width="480" height="226" loading="lazy">
         <div class="series-card__body">
-          <h3>Modern Series</h3>
+          <h3><a class="series-card__link" href="finishes.html#modern">Modern Series</a></h3>
           <ul class="check-list">
             <li>Modern design</li>
             <li>Clean lines</li>
             <li>Streamlined profiles</li>
           </ul>
+          <p class="series-card__more">See standard features and upgrades</p>
         </div>
       </article>
       <article class="series-card">
         <img src="assets/img/series-rustic.jpg" alt="Irontown Rustic Series logo" width="480" height="226" loading="lazy">
         <div class="series-card__body">
-          <h3>Rustic Series</h3>
+          <h3><a class="series-card__link" href="finishes.html#rustic">Rustic Series</a></h3>
           <ul class="check-list">
             <li>Mountain design</li>
             <li>Natural finishes</li>
             <li>Rustic charm</li>
           </ul>
+          <p class="series-card__more">See standard features and upgrades</p>
         </div>
       </article>
       <article class="series-card">
         <img src="assets/img/series-balance.jpg" alt="Irontown Balance Series logo" width="480" height="226" loading="lazy">
         <div class="series-card__body">
-          <h3>Balance Series</h3>
+          <h3><a class="series-card__link" href="finishes.html#balance">Balance Series</a></h3>
           <ul class="check-list">
             <li>Transitional design</li>
             <li>High-end finishes</li>
             <li>Elevated experience</li>
           </ul>
+          <p class="series-card__more">See standard features and upgrades</p>
         </div>
       </article>
     </div>
-    <p class="plans-note">Each series has its own Irontown feature sheet covering siding, roofing, windows, doors, cabinets, counters, flooring, lighting and plumbing fixtures. Ask us for the current sheet for the series you like. Your selections are confirmed in your purchase documents, and Irontown may substitute comparable materials.</p>
+    <p class="plans-note">Each series has its own Irontown feature sheet covering siding, roofing, windows, doors, cabinets, counters, flooring, lighting and plumbing fixtures. Click a series to see its sheet. Your selections are confirmed in your purchase documents, and Irontown may substitute comparable materials.</p>
   </div>
 </section>
 

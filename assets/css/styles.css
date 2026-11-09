@@ -2362,16 +2362,39 @@ img { filter: none; }
 .plan-card__body .plan-type { margin-bottom: 16px; }
 .plan-card__body .btn { margin-top: auto; }
 
-@media (min-width: 700px) {
-  .series-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .series[data-n="2"], .series[data-n="3"] { grid-column: span 2; }
-  .series[data-n="2"] .series__grid, .series[data-n="3"] .series__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+/* Compact catalog: 2 across on phones, 3 on tablets, 4 on desktop. */
+.series-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 12px; }
+.series__grid { gap: 12px; }
+.series:not([data-n="1"]) { grid-column: span 2; }
+.series:not([data-n="1"]) .series__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.series__head { margin-bottom: 10px; padding-bottom: 8px; }
+.series__head h2 { font-size: 1.05rem; }
+.series[data-n="1"] .series__count { display: none; }
+.series .plan-card__body { padding: 12px; }
+.series .plan-card__body h3 { margin-bottom: 4px; font-size: 1rem; }
+.series .plan-size { font-size: 0.82rem; }
+.series .plan-size span { display: block; font-size: 0.76rem; }
+.series .plan-specs { margin-bottom: 4px; font-size: 0.8rem; gap: 2px 8px; }
+.series .plan-card__body .plan-type { display: none; }
+.series .plan-card__body .btn { margin-top: 10px; padding: 9px 10px; font-size: 0.8rem; }
+.series .plan-card__media figcaption { display: none; }
+.series .plan-card__toggle { right: 8px; bottom: 8px; padding: 5px 9px; font-size: 0.62rem; }
+
+@media (min-width: 640px) {
+  .series-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px 16px; }
+  .series__grid { gap: 16px; }
+  .series[data-n="3"], .series[data-n="4"] { grid-column: span 3; }
+  .series[data-n="3"] .series__grid, .series[data-n="4"] .series__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .series[data-n="1"] .series__count { display: block; }
+  .series .plan-size span { display: inline; }
+  .series .plan-card__body .plan-type { display: block; margin-bottom: 0; font-size: 0.76rem; }
 }
 
 @media (min-width: 1040px) {
-  .series-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .series[data-n="3"] { grid-column: span 3; }
-  .series[data-n="3"] .series__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .series-list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .series[data-n="4"] { grid-column: span 4; }
+  .series[data-n="4"] .series__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .series__head h2 { font-size: 1.2rem; }
 }
 
 /* Home page: build timeline and financing ----------------------------------- */
@@ -2457,4 +2480,74 @@ img { filter: none; }
   .timeline__seg { white-space: normal; }
   .timeline__gap { display: none; }
 }
+
+/* Finish series page ---------------------------------------------------------- */
+
+.finish-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.finish-tab { text-decoration: none; }
+
+.finish-panel[hidden] { display: none; }
+
+.finish-panel__head {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.finish-panel__head img {
+  width: 150px;
+  height: auto;
+  border-radius: 6px;
+}
+
+.finish-panel__head h2 { margin: 0 0 4px; }
+.finish-panel__head p { margin: 0; color: var(--muted); }
+
+.finish-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.finish-sheet {
+  overflow: hidden;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #FFFFFF;
+  box-shadow: var(--shadow);
+}
+
+.finish-sheet img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.finish-sheet figcaption {
+  padding: 9px 14px;
+  border-top: 1px solid #E4DFD6;
+  background: var(--card);
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.series-card { position: relative; transition: border-color 180ms ease, transform 180ms ease; }
+.series-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+.series-card__link { color: inherit; text-decoration: none; }
+.series-card__link::after { position: absolute; inset: 0; content: ""; }
+.series-card__more { margin: 14px 0 0; color: var(--accent); font-size: 0.86rem; font-weight: 600; }
+
+@media (min-width: 760px) {
+  .finish-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
 

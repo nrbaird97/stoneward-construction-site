@@ -191,7 +191,7 @@
     var requestUrl = "contact.html?plan=" + encodeURIComponent(plan.name);
 
     return [
-      '<article class="plan-card" data-beds-min="' + range.min + '" data-beds-max="' + range.max + '" data-sqft="' + Number(plan.sqft) + '">',
+      '<article class="plan-card" data-category="' + escapeHtml(plan.category || "") + '" data-beds-min="' + range.min + '" data-beds-max="' + range.max + '" data-sqft="' + Number(plan.sqft) + '">',
       '  <figure class="ph ' + photoClass(index) + ' plan-card__media" data-photo="' + photo + '">',
       '    <img class="plan-card__photo" src="assets/img/' + photo + '" alt="Irontown Modular ' + name + ' exterior rendering" loading="lazy" onerror="this.hidden=true">',
       planImage ? '    <img class="plan-card__plan" src="assets/img/' + planImage + '" alt="Irontown Modular ' + name + ' floor plan" loading="lazy" onerror="this.hidden=true">' : '',
@@ -254,8 +254,7 @@
     }
 
     // Group the plans by series, in an order that packs neatly three across.
-    var seriesOrder = ["Mysa", "Cabana", "Sledhaus", "Morada", "Torrey Flats", "Rabbit", "Eagle Landing"];
-    var seriesNames = seriesOrder.slice();
+    var seriesNames = [];
     plans.forEach(function (plan) {
       var series = plan.series || plan.name;
       if (seriesNames.indexOf(series) === -1) {
@@ -271,7 +270,7 @@
         return "";
       }
       return [
-        '<section class="series" data-series data-n="' + Math.min(members.length, 3) + '">',
+        '<section class="series" data-series data-n="' + Math.min(members.length, 4) + '">',
         '  <header class="series__head">',
         '    <div><p class="series__eyebrow">Series</p><h2>' + escapeHtml(series) + '</h2></div>',
         '    <p class="series__count" data-series-count></p>',
@@ -287,26 +286,32 @@
     var groups = $$("[data-series]", grid);
     var count = $("[data-plan-count]");
     var empty = $("[data-plans-empty]");
-    var state = { beds: "all", size: "all" };
+    var state = { type: "all", beds: "all", size: "all" };
 
     function showCard(card) {
       var bedsMin = Number(card.getAttribute("data-beds-min"));
       var bedsMax = Number(card.getAttribute("data-beds-max"));
       var sqft = Number(card.getAttribute("data-sqft"));
 
+      if (state.type !== "all" && card.getAttribute("data-category") !== state.type) {
+        return false;
+      }
       if (state.beds === "1" && bedsMin > 1) {
         return false;
       }
-      if (state.beds === "2" && bedsMax < 2) {
+      if (state.beds === "2" && (bedsMin > 2 || bedsMax < 2)) {
+        return false;
+      }
+      if (state.beds === "3" && bedsMax < 3) {
         return false;
       }
       if (state.size === "under600" && sqft >= 600) {
         return false;
       }
-      if (state.size === "600to800" && (sqft < 600 || sqft >= 800)) {
+      if (state.size === "600to1000" && (sqft < 600 || sqft > 1002)) {
         return false;
       }
-      if (state.size === "800plus" && sqft < 800) {
+      if (state.size === "1000plus" && sqft <= 1002) {
         return false;
       }
       return true;
@@ -325,7 +330,7 @@
       groups.forEach(function (group) {
         var visible = $$(".plan-card", group).filter(function (card) { return !card.hidden; }).length;
         group.hidden = visible === 0;
-        group.setAttribute("data-n", String(Math.min(visible, 3)));
+        group.setAttribute("data-n", String(Math.min(visible, 4)));
         var label = $("[data-series-count]", group);
         if (label) {
           label.textContent = visible + (visible === 1 ? " model" : " models");
@@ -339,6 +344,15 @@
         empty.hidden = shown !== 0;
       }
     }
+
+    var typeButtons = $$("[data-filter-type]");
+    typeButtons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        state.type = button.getAttribute("data-filter-type");
+        setPressed(typeButtons, button);
+        update();
+      });
+    });
 
     var bedButtons = $$("[data-filter-beds]");
     var sizeButtons = $$("[data-filter-size]");

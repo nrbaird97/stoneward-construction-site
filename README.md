@@ -8,7 +8,8 @@ There is no build step, no framework, no package manager and no external resourc
 
 ```
 index.html               Homepage
-adus.html                All 10 Irontown plans with bedroom and size filters
+adus.html                All 33 Irontown plans grouped by series, with type, bedroom and size filters
+finishes.html            The four finish series with Irontown's feature sheets
 how-it-works.html        Five-step process, who does what, FAQ
 about.html               Stoneward, Irontown Modular and the service area
 contact.html             Mailto contact form, call and email actions
