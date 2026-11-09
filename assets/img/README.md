@@ -25,6 +25,22 @@ The `.jpg` files in this folder are intentionally empty placeholders so every lo
 | `morada-1000.jpg` | 800 x 600 | Irontown Morada 1000 exterior or rendering. |
 | `rabbit-1000.jpg` | 800 x 600 | Irontown Rabbit 1000 exterior or rendering. |
 
+## Irontown-supplied images
+
+These came from Irontown Modular's dealer drive (marketing resources, feature sheets and the Dealer Academy deck) and are already in place:
+
+| File | Source and subject |
+| --- | --- |
+| `how-it-works.jpg` | Irontown photo, wrapped module on the crane on set day. |
+| `about.jpg` | Irontown photo, home set on its foundation during finish work. |
+| `backyard-adu.jpg`, `casita.jpg`, `small-modular-home.jpg` | Irontown renderings. Not tied to a specific plan. |
+| `site-foundation.jpg`, `site-set-day.jpg`, `site-stitch.jpg` | Irontown project photos used on `how-it-works.html`. |
+| `cabana-500.jpg`, `torrey-flats.jpg`, `morada-1000.jpg` | Irontown floor plan drawings, shown uncropped on a white card. |
+| `series-designer.jpg`, `series-modern.jpg`, `series-rustic.jpg`, `series-balance.jpg` | Irontown finish series logos. |
+| `irontown-logo-light.png`, `irontown-logo-dark.png` | Irontown Modular logo for the dark and light themes. |
+
+The remaining seven plan photos and `hero.jpg` are still empty placeholders.
+
 ## Notes
 
 - Use JPEGs, sRGB, compressed for the web. Aim for a sensible file size so pages stay quick.

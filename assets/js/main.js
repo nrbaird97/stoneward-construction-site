@@ -188,6 +188,7 @@
     var photo = escapeHtml(plan.photo || "");
     var name = escapeHtml(plan.name);
     var requestUrl = "contact.html?plan=" + encodeURIComponent(plan.name);
+    var details = [plan.type, plan.footprint ? plan.footprint + " footprint" : ""].filter(Boolean).join(" \u00B7 ");
 
     return [
       '<article class="plan-card" data-beds-min="' + range.min + '" data-beds-max="' + range.max + '" data-sqft="' + Number(plan.sqft) + '">',
@@ -202,7 +203,8 @@
       '      <li><strong>' + escapeHtml(plan.beds) + '</strong> ' + bedsNoun + '</li>',
       '      <li><strong>' + escapeHtml(plan.baths) + '</strong> ' + bathsNoun + '</li>',
       '    </ul>',
-      '    <p class="plan-finishes">Several finishes available</p>',
+      details ? '    <p class="plan-type">' + escapeHtml(details) + '</p>' : '',
+      '    <p class="plan-finishes">Available in four finish series</p>',
       '    <a class="btn btn--primary btn--block" href="' + requestUrl + '">Request pricing</a>',
       '  </div>',
       '</article>'

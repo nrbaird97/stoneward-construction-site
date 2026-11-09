@@ -2115,3 +2115,133 @@ img { filter: none; }
   .hero--scene::before { background: linear-gradient(0deg, rgba(5, 8, 14, 0.82) 0%, rgba(5, 8, 14, 0.45) 55%, rgba(5, 8, 14, 0.15) 100%); }
   .hero__content { padding-top: 90px; padding-bottom: 44px; }
 }
+
+
+/* Irontown content: plan details, finish series, milestones, partner block -- */
+
+.plan-type {
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.plan-card__media img[src$="cabana-500.jpg"],
+.plan-card__media img[src$="torrey-flats.jpg"],
+.plan-card__media img[src$="morada-1000.jpg"] {
+  background: #FFFFFF;
+  object-fit: contain;
+}
+
+.series-grid {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.series-card {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+.series-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.series-card__body {
+  padding: 20px 22px 22px;
+}
+
+.series-card__body h3 {
+  margin-bottom: 12px;
+  font-size: 1.05rem;
+}
+
+.steps--milestones .step-card p {
+  font-size: 0.88rem;
+}
+
+.photo-row {
+  display: grid;
+  gap: 16px;
+  margin: 24px 0 14px;
+}
+
+.photo-row .ph {
+  aspect-ratio: 4 / 3;
+  box-shadow: var(--shadow);
+}
+
+.handle-grid + .compare__disclaimer {
+  margin-top: 18px;
+}
+
+.partner {
+  display: grid;
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 26px;
+  padding: clamp(20px, 4vw, 30px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+.partner__logo img {
+  width: min(100%, 300px);
+  height: auto;
+}
+
+.partner__facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 24px;
+  margin: 0;
+}
+
+.partner__facts dt {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.partner__facts dd {
+  margin: 4px 0 0;
+  color: var(--ink);
+  font-size: 1.02rem;
+  font-weight: 600;
+}
+
+.only-light { display: none; }
+[data-theme="light"] .only-light { display: block; }
+[data-theme="light"] .only-dark { display: none; }
+
+@media (min-width: 640px) {
+  .series-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .photo-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (min-width: 900px) {
+  .partner { grid-template-columns: 0.8fr 1.2fr; gap: 40px; }
+  .partner__facts { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1040px) {
+  .series-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+}
+
+@media (min-width: 640px) {
+  .steps.steps--milestones { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 900px) {
+  .steps.steps--milestones { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
