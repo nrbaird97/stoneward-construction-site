@@ -2044,7 +2044,74 @@ img { filter: none; }
 
 
 /* Logo and brand mark */
-.brand { display: inline-flex; align-items: center; gap: 10px; }
+.brand { display: inline-flex; flex-direction: row; align-items: center; gap: 10px; }
 .brand__text { display: flex; flex-direction: column; line-height: 1.05; }
 .brand__mark { display: block; width: auto; height: 34px; }
 .footer__logo { display: block; width: 100%; max-width: 260px; height: auto; margin-bottom: 14px; }
+
+
+/* Full-bleed hero scene (Utah mountains), night in dark mode and day in light mode */
+.hero--scene {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: min(92vh, 860px);
+  padding: 0;
+  overflow: hidden;
+  background: #0B0B0C;
+}
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  background-image: url("../img/hero.jpg"), url("../img/hero-night.svg");
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+}
+[data-theme="light"] .hero__bg { background-image: url("../img/hero.jpg"), url("../img/hero-day.svg"); }
+.hero--scene::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(90deg, rgba(5, 8, 14, 0.78) 0%, rgba(5, 8, 14, 0.5) 38%, rgba(5, 8, 14, 0) 70%),
+    linear-gradient(0deg, rgba(5, 8, 14, 0.55) 0%, rgba(5, 8, 14, 0) 45%);
+}
+.hero__content {
+  position: relative;
+  z-index: 2;
+  padding-top: 120px;
+  padding-bottom: 64px;
+  color: #F7F3E8;
+}
+.hero--scene .eyebrow { color: #E6C65A; }
+.hero--scene h1 {
+  max-width: 14ch;
+  color: #FFFFFF;
+  font-size: clamp(2.6rem, 6.4vw, 5.2rem);
+  line-height: 1.02;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
+}
+.hero--scene .hero__sub { max-width: 52ch; color: #F1ECE0; font-size: clamp(1.02rem, 1.5vw, 1.25rem); text-shadow: 0 1px 14px rgba(0, 0, 0, 0.45); }
+.hero--scene .hero__meta { color: #E8E2D2; }
+.hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; }
+.btn--hero {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 18px 28px;
+  background: #FFFFFF; color: #0B0B0C;
+  font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.82rem;
+  border: 0; border-radius: 2px; text-decoration: none;
+}
+.btn--hero:hover { background: #E6C65A; color: #0B0B0C; }
+.hero__link { color: #FFFFFF; font-weight: 600; text-decoration: none; }
+.hero__link:hover { color: #E6C65A; }
+.hero__caption {
+  position: absolute; right: 24px; bottom: 18px; z-index: 2; margin: 0;
+  color: rgba(255, 255, 255, 0.75); font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+}
+@media (max-width: 720px) {
+  .hero--scene { min-height: 86vh; }
+  .hero--scene::before { background: linear-gradient(0deg, rgba(5, 8, 14, 0.82) 0%, rgba(5, 8, 14, 0.45) 55%, rgba(5, 8, 14, 0.15) 100%); }
+  .hero__content { padding-top: 90px; padding-bottom: 44px; }
+}
