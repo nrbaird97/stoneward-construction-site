@@ -2669,3 +2669,30 @@ img { filter: none; }
   .plans-grid--related { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
 }
 
+
+/* Related plans on the detail page: same compact card as the catalog ------- */
+.plans-grid--related .plan-card__body { padding: 12px; }
+.plans-grid--related .plan-card__body h3 { margin-bottom: 4px; font-size: 1rem; }
+.plans-grid--related .plan-size span { display: block; font-size: 0.76rem; }
+.plans-grid--related .plan-specs { margin-bottom: 4px; font-size: 0.8rem; gap: 2px 8px; }
+.plans-grid--related .plan-card__body .plan-type { display: none; }
+.plans-grid--related .plan-card__media figcaption { display: none; }
+.plans-grid--related .plan-card__toggle { right: 8px; bottom: 8px; padding: 5px 9px; font-size: 0.62rem; }
+.plans-grid--related .plan-card__actions { flex-direction: column; align-items: stretch; }
+.plans-grid--related .plan-card__quote { text-align: center; }
+@media (min-width: 640px) {
+  .plans-grid--related .plan-card__body .plan-type { display: block; font-size: 0.76rem; }
+  .plans-grid--related .plan-size span { display: inline; }
+}
+.footer__col a { overflow-wrap: anywhere; }
+.finish-cat[hidden] { display: none; }
+.finish-jump { position: sticky; top: 64px; z-index: 5; margin: 0 -16px 8px; padding: 10px 16px; background: var(--bg); overflow-x: auto; flex-wrap: nowrap; scrollbar-width: none; }
+.finish-jump::-webkit-scrollbar { display: none; }
+.finish-jump .chip { flex: 0 0 auto; }
+.finish-jump .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #0B0B0C; }
+@media (max-width: 699px) {
+  .opt-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .opt__body { padding: 10px 10px 12px; }
+  .opt__body h5 { font-size: 0.86rem; }
+  .opt__body p { font-size: 0.78rem; }
+}
