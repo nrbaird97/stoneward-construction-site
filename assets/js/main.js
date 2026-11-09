@@ -400,3 +400,27 @@
   initPlanBrowser();
   initContactForm();
 })();
+
+
+/* Theme toggle: dark is the default, choice is remembered in localStorage. */
+(function () {
+  var root = document.documentElement;
+  var meta = document.querySelector('meta[name="theme-color"]');
+  var buttons = document.querySelectorAll("[data-theme-toggle]");
+  function apply(theme) {
+    root.setAttribute("data-theme", theme);
+    if (meta) { meta.setAttribute("content", theme === "light" ? "#FAF8F4" : "#0B0B0C"); }
+    buttons.forEach(function (b) {
+      b.setAttribute("aria-pressed", theme === "light" ? "true" : "false");
+      b.setAttribute("aria-label", theme === "light" ? "Switch to dark mode" : "Switch to light mode");
+    });
+  }
+  apply(root.getAttribute("data-theme") === "light" ? "light" : "dark");
+  buttons.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
+      apply(next);
+      try { localStorage.setItem("sw-theme", next); } catch (e) { /* storage blocked, theme still applies */ }
+    });
+  });
+})();
