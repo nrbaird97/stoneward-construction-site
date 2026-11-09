@@ -2304,3 +2304,157 @@ img { filter: none; }
 @media (hover: hover) {
   .plan-card__media:hover figcaption { opacity: 0; }
 }
+
+/* Catalog grouped by series ------------------------------------------------- */
+
+.series-list {
+  display: grid;
+  gap: 36px 20px;
+  grid-auto-flow: dense;
+}
+
+.series[hidden] { display: none; }
+
+.series__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.series__eyebrow {
+  margin: 0 0 2px;
+  color: var(--accent);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.series__head h2 {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.series__count {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.series__grid {
+  display: grid;
+  gap: 20px;
+}
+
+.plan-size {
+  margin: 0 0 4px;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.plan-size strong { color: var(--ink); font-weight: 600; }
+.plan-size span { font-size: 0.84rem; }
+.plan-card__body .plan-type { margin-bottom: 16px; }
+.plan-card__body .btn { margin-top: auto; }
+
+@media (min-width: 700px) {
+  .series-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .series[data-n="2"], .series[data-n="3"] { grid-column: span 2; }
+  .series[data-n="2"] .series__grid, .series[data-n="3"] .series__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1040px) {
+  .series-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .series[data-n="3"] { grid-column: span 3; }
+  .series[data-n="3"] .series__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* Home page: build timeline and financing ----------------------------------- */
+
+.timeline {
+  display: grid;
+  gap: 18px;
+  margin-bottom: 28px;
+  padding: clamp(18px, 3vw, 28px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+.timeline__row {
+  display: grid;
+  gap: 8px;
+}
+
+.timeline__label {
+  margin: 0;
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.timeline__tracks {
+  display: grid;
+  gap: 6px;
+}
+
+.timeline__tracks--short { width: 58%; }
+
+.timeline__track {
+  display: flex;
+  gap: 4px;
+}
+
+.timeline__seg {
+  overflow: hidden;
+  min-width: 0;
+  padding: 9px 10px;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #0B0B0C;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.timeline__seg--accent {
+  background: transparent;
+  box-shadow: inset 0 0 0 1.5px var(--accent);
+  color: var(--accent);
+}
+
+.timeline__seg--muted {
+  background: var(--line-strong);
+  color: var(--ink);
+}
+
+.timeline__note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.info-card .check-list { margin-top: 14px; }
+
+@media (min-width: 900px) {
+  .timeline__row { grid-template-columns: 110px minmax(0, 1fr); align-items: center; }
+  .info-grid.info-grid--three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 640px) {
+  .timeline__tracks--short { width: 100%; }
+  .timeline__track { flex-direction: column; }
+  .timeline__seg { white-space: normal; }
+  .timeline__gap { display: none; }
+}
+

@@ -189,7 +189,6 @@
     var planImage = escapeHtml(plan.plan || "");
     var name = escapeHtml(plan.name);
     var requestUrl = "contact.html?plan=" + encodeURIComponent(plan.name);
-    var details = [plan.type, plan.footprint ? plan.footprint + " footprint" : ""].filter(Boolean).join(" \u00B7 ");
 
     return [
       '<article class="plan-card" data-beds-min="' + range.min + '" data-beds-max="' + range.max + '" data-sqft="' + Number(plan.sqft) + '">',
@@ -201,13 +200,12 @@
       '  </figure>',
       '  <div class="plan-card__body">',
       '    <h3>' + name + '</h3>',
+      '    <p class="plan-size"><strong>' + sqft + '</strong> sq ft' + (plan.footprint ? ' <span>(' + escapeHtml(plan.footprint) + ')</span>' : '') + '</p>',
       '    <ul class="plan-specs">',
-      '      <li><strong>' + sqft + '</strong> sq ft</li>',
       '      <li><strong>' + escapeHtml(plan.beds) + '</strong> ' + bedsNoun + '</li>',
       '      <li><strong>' + escapeHtml(plan.baths) + '</strong> ' + bathsNoun + '</li>',
       '    </ul>',
-      details ? '    <p class="plan-type">' + escapeHtml(details) + '</p>' : '',
-      '    <p class="plan-finishes">Available in four finish series</p>',
+      plan.type ? '    <p class="plan-type">' + escapeHtml(plan.type) + '</p>' : '',
       '    <a class="btn btn--primary btn--block" href="' + requestUrl + '">Request pricing</a>',
       '  </div>',
       '</article>'
@@ -255,9 +253,38 @@
       return;
     }
 
-    grid.innerHTML = plans.map(planCard).join("\n");
+    // Group the plans by series, in an order that packs neatly three across.
+    var seriesOrder = ["Mysa", "Cabana", "Sledhaus", "Morada", "Torrey Flats", "Rabbit", "Eagle Landing"];
+    var seriesNames = seriesOrder.slice();
+    plans.forEach(function (plan) {
+      var series = plan.series || plan.name;
+      if (seriesNames.indexOf(series) === -1) {
+        seriesNames.push(series);
+      }
+    });
+
+    grid.innerHTML = seriesNames.map(function (series) {
+      var members = plans.filter(function (plan) {
+        return (plan.series || plan.name) === series;
+      });
+      if (!members.length) {
+        return "";
+      }
+      return [
+        '<section class="series" data-series data-n="' + Math.min(members.length, 3) + '">',
+        '  <header class="series__head">',
+        '    <div><p class="series__eyebrow">Series</p><h2>' + escapeHtml(series) + '</h2></div>',
+        '    <p class="series__count" data-series-count></p>',
+        '  </header>',
+        '  <div class="series__grid">',
+        members.map(function (plan) { return planCard(plan, plans.indexOf(plan)); }).join("\n"),
+        '  </div>',
+        '</section>'
+      ].join("\n");
+    }).join("\n");
 
     var cards = $$(".plan-card", grid);
+    var groups = $$("[data-series]", grid);
     var count = $("[data-plan-count]");
     var empty = $("[data-plans-empty]");
     var state = { beds: "all", size: "all" };
@@ -295,8 +322,18 @@
         }
       });
 
+      groups.forEach(function (group) {
+        var visible = $$(".plan-card", group).filter(function (card) { return !card.hidden; }).length;
+        group.hidden = visible === 0;
+        group.setAttribute("data-n", String(Math.min(visible, 3)));
+        var label = $("[data-series-count]", group);
+        if (label) {
+          label.textContent = visible + (visible === 1 ? " model" : " models");
+        }
+      });
+
       if (count) {
-        count.textContent = shown + " of " + cards.length + " plans";
+        count.textContent = shown === cards.length ? "All " + cards.length + " plans" : shown + " of " + cards.length + " plans";
       }
       if (empty) {
         empty.hidden = shown !== 0;
