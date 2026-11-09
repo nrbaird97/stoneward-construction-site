@@ -169,9 +169,9 @@ def check_page_meta(page: Path, html: str) -> None:
             add_issue(f"{relative}: missing {prop}")
 
     if not re.search(
-        r"<link\s+rel=\"icon\"\s+href=\"data:image/svg\+xml,", html, re.IGNORECASE
+        r"<link\s+rel=\"icon\"[^>]*href=\"(data:image/svg\+xml,|assets/img/favicon\.png)", html, re.IGNORECASE
     ):
-        add_issue(f"{relative}: missing inline SVG favicon")
+        add_issue(f"{relative}: missing favicon")
 
     if not re.search(r"id=\"business-schema\"", html, re.IGNORECASE):
         add_issue(f"{relative}: missing LocalBusiness JSON-LD slot")

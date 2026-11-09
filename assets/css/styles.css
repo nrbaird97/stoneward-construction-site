@@ -2041,3 +2041,10 @@ img { filter: none; }
 [data-theme="light"] .ph figcaption { background: rgba(27, 27, 26, 0.7); color: #F2ECDD; }
 [data-theme="light"] .ph--1,
 [data-theme="light"] .ph { background-blend-mode: normal; }
+
+
+/* Logo and brand mark */
+.brand { display: inline-flex; align-items: center; gap: 10px; }
+.brand__text { display: flex; flex-direction: column; line-height: 1.05; }
+.brand__mark { display: block; width: auto; height: 34px; }
+.footer__logo { display: block; width: 100%; max-width: 260px; height: auto; margin-bottom: 14px; }
