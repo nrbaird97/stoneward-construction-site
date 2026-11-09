@@ -1,6 +1,6 @@
 # Stoneward Construction static site
 
-A plain HTML, one-CSS-file, small-JavaScript marketing site for Stoneward Construction, a licensed Utah residential contractor and authorized Irontown Modular dealer.
+A plain HTML, one-CSS-file, small-JavaScript marketing site for Stoneward Construction, a licensed Utah residential contractor.
 
 There is no build step, no framework, no package manager and no external resource. Open the pages from any static host or local web server.
 
@@ -8,10 +8,12 @@ There is no build step, no framework, no package manager and no external resourc
 
 ```
 index.html               Homepage
-adus.html                All 33 Irontown plans grouped by series, with type, bedroom and size filters
-finishes.html            The four finish series with Irontown's feature sheets
-how-it-works.html        Five-step process, who does what, FAQ
-about.html               Stoneward, Irontown Modular and the service area
+adus.html                All 33 plans grouped by series, with type, bedroom and size filters
+finishes.html            The four finish series, one category at a time
+how-it-works.html        Five-step process, who does what, budget
+about.html               The owner's story and the service area
+faq.html                 Questions and answers, grouped by topic
+gallery.html             Completed homes and a rendering of every plan, with a lightbox
 contact.html             Mailto contact form, call and email actions
 404.html                 Not-found page
 robots.txt               Crawler rules and sitemap location
@@ -20,9 +22,9 @@ README.md                This file
 assets/
   css/styles.css         The only stylesheet
   js/config.js           Contact details, the single source of truth
-  js/plans.js            The 10 Irontown plan records
+  js/plans.js            The plan records
   js/main.js             Header, filters, plan cards, mailto form, JSON-LD
-  img/                   Photo slots and photo instructions
+  img/                   Photos, floor plans and the gallery
 scripts/
   check.py               Stdlib-only site checker
 ```
@@ -100,6 +102,6 @@ Each page has a minimal `<script type="application/ld+json" id="business-schema"
 
 ## Deploying
 
-Upload the whole directory to any static host. No server-side code or build command is required. Keep `robots.txt` and `sitemap.xml` at the site root and make sure the host serves `404.html` for not-found requests if you want the custom page.
+The live site is a Cloudflare Pages project (direct upload). Pushing to main does not publish it; run the deploy script from the PC after merging. No build command is required. Keep `robots.txt` and `sitemap.xml` at the site root and make sure the host serves `404.html` for not-found requests if you want the custom page.
 
 Before launch, replace the placeholder photos, confirm the three `VERIFY WITH OWNER` contact values and run `python3 scripts/check.py`.

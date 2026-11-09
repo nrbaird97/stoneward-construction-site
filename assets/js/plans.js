@@ -1,5 +1,5 @@
 /*
-  The floor plans Stoneward sells, all built by Irontown Modular.
+  The floor plans Stoneward sells.
 
   Add, remove or edit plans here. Keep the field names the same so the
   plan cards and filters on adus.html keep working.
@@ -12,10 +12,9 @@
   - beds and baths are strings. A range is written with a hyphen.
   - slug is the id used by plan.html?plan=slug. about is our own description.
   - gallery lists extra large photos in assets/img/plans.
-  Specs come from the model pages on Irontown's website.
-  No prices belong in this file.
+    No prices belong in this file.
 */
-window.IRONTOWN_PLANS = [
+window.SITE_PLANS = [
   { name: "Cabana 200", series: "Cabana", category: "adu", sqft: 200, beds: "1", baths: "0-1", photo: "cabana-200.jpg", plan: "cabana-200-plan.jpg", type: "Studio cabin, ADU or park model", footprint: "10' x 20'", slug: "cabana-200", about: "The smallest Cabana is a single 10 by 20 foot module with big corner glass. It works as a backyard studio, a home office or a guest room, and a bathroom can be added.", gallery: ["cabana-200-1.jpg", "cabana-200-2.jpg", "cabana-200-3.jpg"] },
   { name: "Cabana 300", series: "Cabana", category: "adu", sqft: 330, beds: "1", baths: "1", photo: "cabana-300.jpg", plan: "cabana-300-plan.jpg", type: "Studio cabin or ADU", footprint: "12' x 27'6\"", slug: "cabana-300", about: "A studio with a real kitchen and bath in 330 square feet. Its narrow 12 foot width helps it fit tight side yards and smaller Wasatch Front lots.", gallery: ["cabana-300-1.jpg", "cabana-300-2.jpg", "cabana-300-3.jpg"] },
   { name: "Cabana 400", series: "Cabana", category: "adu", sqft: 397, beds: "1", baths: "1", photo: "cabana-400.jpg", plan: "cabana-400-plan.jpg", type: "One-bedroom cabin, ADU or park model", footprint: "14' x 32'", slug: "cabana-400", about: "A true one-bedroom in under 400 square feet, with a wall of glass at the living end. It is a popular size for a rental unit or a place for a parent to live close by.", gallery: ["cabana-400-1.jpg", "cabana-400-2.jpg", "cabana-400-3.jpg"] },

@@ -7,7 +7,7 @@
   "use strict";
 
   var config = window.SITECONFIG || {};
-  var plans = Array.isArray(window.IRONTOWN_PLANS) ? window.IRONTOWN_PLANS : [];
+  var plans = Array.isArray(window.SITE_PLANS) ? window.SITE_PLANS : [];
 
   function $(selector, root) {
     return (root || document).querySelector(selector);
@@ -84,7 +84,7 @@
       "@type": "LocalBusiness",
       "name": config.businessName || "Stoneward Construction",
       "url": String(config.siteUrl || "https://www.stonewardconstruction.com").replace(/\/$/, "") + "/",
-      "description": "Licensed Utah residential contractor and authorized Irontown Modular dealer for modular ADUs and small modular homes.",
+      "description": "Licensed Utah residential contractor for modular ADUs and small modular homes.",
       "telephone": config.phone,
       "email": config.email,
       "areaServed": config.serviceArea
@@ -535,6 +535,80 @@
     }
   }
 
+  function initGallery() {
+    var grids = $$("[data-gallery]");
+    if (!grids.length) { return; }
+
+    var planGrid = $("[data-gallery-plans]");
+    if (planGrid) {
+      plans.forEach(function (plan) {
+        var file = (plan.gallery && plan.gallery[0]) ? "plans/" + plan.gallery[0] : plan.photo;
+        if (!file) { return; }
+        var src = "assets/img/" + file;
+        var button = document.createElement("button");
+        button.type = "button";
+        button.className = "gallery__item";
+        button.setAttribute("data-full", src);
+        button.setAttribute("data-caption", plan.name);
+        button.setAttribute("data-href", "plan.html?plan=" + encodeURIComponent(plan.slug || ""));
+        button.innerHTML = '<img src="' + escapeHtml(src) + '" alt="' + escapeHtml(plan.name) + ' rendering" loading="lazy">';
+        planGrid.appendChild(button);
+      });
+    }
+
+    var items = $$(".gallery__item");
+    var box = document.createElement("div");
+    box.className = "lightbox";
+    box.hidden = true;
+    box.setAttribute("role", "dialog");
+    box.setAttribute("aria-modal", "true");
+    box.setAttribute("aria-label", "Photo viewer");
+    box.innerHTML = '<button class="lightbox__btn lightbox__close" type="button" aria-label="Close">&times;</button>' +
+      '<button class="lightbox__btn lightbox__prev" type="button" aria-label="Previous photo">&lsaquo;</button>' +
+      '<img class="lightbox__img" alt="">' +
+      '<button class="lightbox__btn lightbox__next" type="button" aria-label="Next photo">&rsaquo;</button>' +
+      '<p class="lightbox__count"></p>';
+    document.body.appendChild(box);
+    var img = $(".lightbox__img", box);
+    var count = $(".lightbox__count", box);
+    var current = 0;
+    var opener = null;
+
+    function show(index) {
+      current = (index + items.length) % items.length;
+      var item = items[current];
+      img.src = item.getAttribute("data-full");
+      img.alt = item.getAttribute("data-caption") || "";
+      var href = item.getAttribute("data-href");
+      count.innerHTML = escapeHtml(item.getAttribute("data-caption") || "") + (href ? ' &middot; <a href="' + escapeHtml(href) + '">View plan</a>' : "") + " &middot; " + (current + 1) + " of " + items.length;
+    }
+    function open(index, trigger) {
+      opener = trigger;
+      show(index);
+      box.hidden = false;
+      document.body.style.overflow = "hidden";
+      $(".lightbox__close", box).focus();
+    }
+    function close() {
+      box.hidden = true;
+      document.body.style.overflow = "";
+      if (opener) { opener.focus(); }
+    }
+    items.forEach(function (item, index) {
+      item.addEventListener("click", function () { open(index, item); });
+    });
+    $(".lightbox__close", box).addEventListener("click", close);
+    $(".lightbox__prev", box).addEventListener("click", function () { show(current - 1); });
+    $(".lightbox__next", box).addEventListener("click", function () { show(current + 1); });
+    box.addEventListener("click", function (event) { if (event.target === box) { close(); } });
+    document.addEventListener("keydown", function (event) {
+      if (box.hidden) { return; }
+      if (event.key === "Escape") { close(); }
+      if (event.key === "ArrowLeft") { show(current - 1); }
+      if (event.key === "ArrowRight") { show(current + 1); }
+    });
+  }
+
   applyContactDetails();
   injectBusinessSchema();
   initPlanDetail();
@@ -543,6 +617,7 @@
   initFeaturedPlans();
   initPlanBrowser();
   initContactForm();
+  initGallery();
 })();
 
 

@@ -1932,7 +1932,7 @@ body.menu-open {
 
 @media (min-width: 1024px) {
   .footer__grid {
-    grid-template-columns: 1.5fr 0.8fr 1.05fr 1.05fr;
+    grid-template-columns: 1.3fr 0.8fr 1.45fr 1fr;
   }
 
   .process__item {
@@ -2481,7 +2481,7 @@ img { filter: none; }
   .info-grid.info-grid--three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 760px) {
   .timeline__tracks--short { width: 100%; }
   .timeline__track { flex-direction: column; }
   .timeline__seg { white-space: normal; }
@@ -2691,7 +2691,7 @@ img { filter: none; }
   .plans-grid--related .plan-card__body .plan-type { display: block; font-size: 0.76rem; }
   .plans-grid--related .plan-size span { display: inline; }
 }
-.footer__col a { overflow-wrap: anywhere; }
+
 .finish-cat[hidden] { display: none; }
 .finish-jump { position: sticky; top: 64px; z-index: 5; margin: 0 -16px 8px; padding: 10px 16px; background: var(--bg); overflow-x: auto; flex-wrap: nowrap; scrollbar-width: none; }
 .finish-jump::-webkit-scrollbar { display: none; }
@@ -2703,3 +2703,77 @@ img { filter: none; }
   .opt__body h5 { font-size: 0.86rem; }
   .opt__body p { font-size: 0.78rem; }
 }
+
+/* About: founder story and stats ------------------------------------------- */
+.founder { display: grid; gap: 32px; align-items: start; }
+.founder__photo { margin: 0; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); box-shadow: var(--shadow); }
+.founder__photo img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.founder__copy h2 { margin-top: 0; }
+.founder__copy p { max-width: 62ch; color: var(--muted); font-size: 1.04rem; line-height: 1.7; }
+.founder__copy p + p { margin-top: 1em; }
+.founder:has(.founder__photo[hidden]) { grid-template-columns: minmax(0, 1fr); }
+.stat-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; margin-top: 44px; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--line); }
+.stat { display: flex; flex-direction: column; gap: 6px; padding: 22px 20px; background: var(--card); }
+.stat__num { color: var(--accent); font-size: clamp(1.5rem, 4vw, 2.1rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
+.stat__label { color: var(--muted); font-size: 0.88rem; line-height: 1.4; }
+@media (min-width: 860px) {
+  .founder:has(.founder__photo) { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; }
+  .stat-row { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* FAQ page ------------------------------------------------------------------ */
+.faq-groups { display: grid; gap: 52px; }
+.faq-group__head { margin: 0 0 18px; padding-bottom: 10px; border-bottom: 1px solid var(--line); font-size: 1.25rem; }
+.faq-jump { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+.faq-jump .chip { text-decoration: none; }
+.faq-group { scroll-margin-top: calc(var(--header-h) + 24px); }
+
+/* Gallery -------------------------------------------------------------------- */
+.gallery-grid { columns: 1; column-gap: 14px; }
+.gallery__item { display: block; width: 100%; margin: 0 0 14px; padding: 0; break-inside: avoid; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); cursor: zoom-in; }
+.gallery__item img { display: block; width: 100%; height: auto; transition: transform 320ms ease; }
+.gallery__item:hover img { transform: scale(1.03); }
+.gallery__item:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (min-width: 600px) { .gallery-grid { columns: 2; } }
+@media (min-width: 960px) { .gallery-grid { columns: 3; column-gap: 18px; } .gallery__item { margin-bottom: 18px; } }
+.lightbox { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgba(5, 6, 8, 0.94); }
+.lightbox[hidden] { display: none; }
+.lightbox__img { max-width: min(1200px, 100%); max-height: 86vh; border-radius: 6px; box-shadow: var(--shadow-lift); }
+.lightbox__btn { position: absolute; display: grid; place-items: center; width: 46px; height: 46px; border: 1px solid var(--line-strong); border-radius: 50%; background: rgba(21, 21, 22, 0.9); color: #F2ECDD; font-size: 1.4rem; line-height: 1; cursor: pointer; }
+.lightbox__btn:hover { border-color: var(--accent); color: var(--accent); }
+.lightbox__close { top: 16px; right: 16px; }
+.lightbox__prev { left: 14px; top: 50%; transform: translateY(-50%); }
+.lightbox__next { right: 14px; top: 50%; transform: translateY(-50%); }
+.lightbox__count { position: absolute; bottom: 16px; left: 0; right: 0; margin: 0; color: #A8A294; font-size: 0.82rem; text-align: center; }
+@media (max-width: 600px) { .lightbox__prev { left: 8px; } .lightbox__next { right: 8px; } .lightbox { padding: 12px; } }
+
+.trust + .service-band { margin-top: 28px; }
+@media (min-width: 860px) {
+  .founder:not(:has(.founder__photo)) .founder__copy { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 56px; align-items: start; }
+  .founder:not(:has(.founder__photo)) .founder__copy h2 { grid-column: 1; grid-row: 1 / span 6; position: sticky; top: calc(var(--header-h) + 24px); font-size: clamp(1.8rem, 3vw, 2.4rem); }
+  .founder:not(:has(.founder__photo)) .founder__copy p { grid-column: 2; margin-top: 0; }
+  .founder:not(:has(.founder__photo)) .founder__copy p + p { margin-top: 1em; }
+}
+@media (min-width: 960px) { .footer__col a { white-space: nowrap; } }
+.founder__copy p, .founder__copy p + p { margin: 0 0 1em; }
+
+/* Header fit: six nav links need the phone number as an icon below 1200px */
+.site-nav a { white-space: nowrap; }
+@media (min-width: 901px) and (max-width: 1199px) {
+  .header__phone { display: none; }
+  .header__phone-icon { display: inline-flex; }
+  .site-nav { gap: clamp(12px, 1.6vw, 22px); }
+  .header__cta { padding-inline: 14px; }
+}
+.timeline, .timeline__row, .timeline__tracks { min-width: 0; } .timeline__row > * { min-width: 0; }
+
+/* Home: photo strip and owner teaser ----------------------------------------- */
+.photo-strip { display: grid; gap: 14px; }
+.photo-strip a { display: block; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); }
+.photo-strip img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; transition: transform 320ms ease; }
+.photo-strip a:hover img { transform: scale(1.03); }
+@media (min-width: 700px) { .photo-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; } }
+.teaser { display: grid; gap: 32px; align-items: center; }
+.teaser__copy p { max-width: 60ch; color: var(--muted); font-size: 1.04rem; line-height: 1.7; }
+.teaser .stat-row { margin-top: 0; }
+@media (min-width: 860px) { .teaser { grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); gap: 56px; } .teaser .stat-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
