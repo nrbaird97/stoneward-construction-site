@@ -53,7 +53,7 @@ Open `assets/js/plans.js`. Each record uses this shape:
 - `photo` is a filename in `assets/img/`.
 - Keep the field names and the array order intact unless you also update the filter logic in `main.js`.
 
-Do not add prices to this file or to the pages. Pricing is confirmed in a written quote.
+Prices live in one place: the `price` field in `assets/js/plans.js` (Designer Series planning price, delivered and set in Utah, from the factory sheet; `window.PRICE_DATE` says when). The pages render prices from that data, so do not type dollar amounts into the HTML (the checker blocks it). Update every price and the date together when the factory sheet changes.
 
 The homepage featured strip uses the plans named in `initFeaturedPlans()` in `assets/js/main.js`. If those names change, update that list.
 

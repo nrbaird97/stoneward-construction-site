@@ -2833,3 +2833,6 @@ img { filter: none; }
 .city-card__county { margin: -4px 0 8px; color: var(--accent); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
 .city-card p.city-card__county { margin: -4px 0 8px; color: var(--accent); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
 .law-banner__links { display: flex; flex-wrap: wrap; gap: 8px 22px; }
+
+.plan-price { margin: 0 0 4px; color: var(--muted); font-size: 0.82rem; }
+.plan-price strong { color: var(--accent); font-size: 1.05rem; font-weight: 800; }

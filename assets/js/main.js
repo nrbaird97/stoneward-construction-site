@@ -198,6 +198,32 @@
     return ["ph--warm", "ph--sage", "ph--clay", "ph--sand"][index % 4];
   }
 
+  function money(value) {
+    return "$" + Number(value).toLocaleString("en-US");
+  }
+
+  var PRICE_NOTE = "Starting prices are Designer Series planning estimates for a home delivered and set on your foundation in Utah, as of " + (window.PRICE_DATE || "this month") + ". Delivery, the standard crane and set are included, though site conditions can add charges. Not included: site work, foundation, utility connections, the finish work that joins the modules, sales tax, permits and fees. Prices can change, and your final price is confirmed in a written contract after design and preconstruction.";
+
+  function addPriceNotes() {
+    $$(".plans-grid, .series__grid, .series-list").forEach(function (grid) {
+      if (!grid.querySelector("[data-plan-price]")) { return; }
+      var holder = grid.classList.contains("series__grid") ? grid.closest(".series-list") || grid : grid;
+      if (holder.parentNode && holder.parentNode.querySelector("[data-price-note]")) { return; }
+      var note = document.createElement("p");
+      note.className = "plans-note";
+      note.setAttribute("data-price-note", "");
+      note.textContent = PRICE_NOTE;
+      holder.parentNode.insertBefore(note, holder.nextSibling);
+    });
+    $$("[data-price-from]").forEach(function (node) {
+      var kind = node.getAttribute("data-price-from");
+      var list = plans.filter(function (plan) { return plan.price && (kind === "all" || plan.category === kind); });
+      if (!list.length) { return; }
+      var low = list.reduce(function (a, b) { return a.price <= b.price ? a : b; });
+      node.textContent = money(low.price);
+    });
+  }
+
   function planCard(plan, index) {
     var range = bedsRange(plan.beds);
     var sqft = Number(plan.sqft).toLocaleString("en-US");
@@ -220,6 +246,7 @@
       '  </figure>',
       '  <div class="plan-card__body">',
       '    <h3><a class="plan-card__link" href="' + detailUrl + '">' + name + '</a></h3>',
+      plan.price ? '    <p class="plan-price" data-plan-price>From <strong>' + money(plan.price) + '</strong></p>' : '',
       '    <p class="plan-size"><strong>' + sqft + '</strong> sq ft' + (plan.footprint ? ' <span>(' + escapeHtml(plan.footprint) + ')</span>' : '') + '</p>',
       '    <ul class="plan-specs">',
       '      <li><strong>' + escapeHtml(plan.beds) + '</strong> ' + bedsNoun + '</li>',
@@ -512,6 +539,7 @@
     $("[data-plan-cta]", root).setAttribute("href", "contact?plan=" + encodeURIComponent(plan.name));
 
     var facts = [
+      ["Starting at", plan.price ? money(plan.price) : "Request pricing"],
       ["Living area", sqft + " sq ft"],
       ["Footprint", plan.footprint || ""],
       ["Bedrooms", plan.beds],
@@ -519,6 +547,8 @@
       ["Style", plan.type || ""],
       ["Best suited for", plan.category === "home" ? "A primary home on its own lot" : "A backyard ADU, guest house or small home"]
     ];
+    var noteNode = $("[data-plan-price-note]", root);
+    if (noteNode && plan.price) { noteNode.textContent = PRICE_NOTE; }
     $("[data-plan-facts]", root).innerHTML = facts.filter(function (fact) { return fact[1]; }).map(function (fact) {
       return "<div><dt>" + escapeHtml(fact[0]) + "</dt><dd>" + escapeHtml(fact[1]) + "</dd></div>";
     }).join("");
@@ -645,6 +675,7 @@
   initFeaturedPlans();
   initNamedPlans();
   initPlanBrowser();
+  addPriceNotes();
   initContactForm();
   initGallery();
 })();
