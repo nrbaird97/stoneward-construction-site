@@ -2832,3 +2832,4 @@ img { filter: none; }
 .chip-row .chip { text-decoration: none; }
 .city-card__county { margin: -4px 0 8px; color: var(--accent); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
 .city-card p.city-card__county { margin: -4px 0 8px; color: var(--accent); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+.law-banner__links { display: flex; flex-wrap: wrap; gap: 8px 22px; }
