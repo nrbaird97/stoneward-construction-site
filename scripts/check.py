@@ -144,6 +144,14 @@ def check_http_urls() -> None:
 
 def check_page_meta(page: Path, html: str) -> None:
     relative = page.relative_to(ROOT)
+    # A greedy text replace once swallowed a page's head and header into an
+    # unclosed script, which left the FAQ blank. Catch that shape of damage.
+    if len(re.findall(r"<body[\s>]", html)) != 1 or html.count("</head>") != 1:
+        add_issue(f"{relative}: needs exactly one <body> and one </head>")
+    if len(re.findall(r"<script[\s>]", html)) != html.count("</script>"):
+        add_issue(f"{relative}: unbalanced <script> tags")
+    if html.count("<main") != 1 or html.count("</main>") != 1:
+        add_issue(f"{relative}: needs exactly one <main> block")
     if not re.search(r"<!doctype\s+html", html, re.IGNORECASE):
         add_issue(f"{relative}: missing HTML doctype")
     if not re.search(r"<html\s+lang=\"en\"", html, re.IGNORECASE):
