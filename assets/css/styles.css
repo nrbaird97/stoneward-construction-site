@@ -2820,3 +2820,15 @@ img { filter: none; }
 .city-card .link-arrow { margin-top: auto; }
 @media (min-width: 640px) { .city-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 1000px) { .city-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* City pages: breadcrumbs, prose, chips ---------------------------------------- */
+.crumbs { margin: 0 0 14px; color: var(--muted); font-size: 0.82rem; }
+.crumbs a { color: var(--muted); text-decoration: none; }
+.crumbs a:hover { color: var(--accent); }
+.prose { max-width: 70ch; }
+.prose p { color: var(--muted); font-size: 1.04rem; line-height: 1.75; }
+.prose p + p { margin-top: 1em; }
+.chip-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; }
+.chip-row .chip { text-decoration: none; }
+.city-card__county { margin: -4px 0 8px; color: var(--accent); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+.city-card p.city-card__county { margin: -4px 0 8px; color: var(--accent); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
