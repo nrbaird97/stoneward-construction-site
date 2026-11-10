@@ -71,6 +71,12 @@
     $$("[data-service-area]").forEach(function (node) {
       node.textContent = area;
     });
+
+    var addr = config.address || {};
+    var addrText = addr.street ? [addr.street, addr.city + ", " + addr.region + " " + addr.postalCode].join(", ") : "";
+    $$("[data-address-text]").forEach(function (node) {
+      node.textContent = addrText;
+    });
   }
 
   function injectBusinessSchema() {
@@ -89,6 +95,17 @@
       "email": config.email,
       "areaServed": config.serviceArea
     };
+
+    if (config.address && config.address.street) {
+      schema.address = {
+        "@type": "PostalAddress",
+        "streetAddress": config.address.street,
+        "addressLocality": config.address.city,
+        "addressRegion": config.address.region,
+        "postalCode": config.address.postalCode,
+        "addressCountry": "US"
+      };
+    }
 
     node.textContent = JSON.stringify(schema);
   }
@@ -215,6 +232,16 @@
       '  </div>',
       '</article>'
     ].join("\n");
+  }
+
+  function initNamedPlans() {
+    $$("[data-plan-names]").forEach(function (grid) {
+      var names = grid.getAttribute("data-plan-names").split(",").map(function (n) { return n.trim(); });
+      var list = names.map(function (name) {
+        return plans.find(function (plan) { return plan.name === name; });
+      }).filter(Boolean);
+      grid.innerHTML = list.map(planCard).join("\n");
+    });
   }
 
   function initFeaturedPlans() {
@@ -615,6 +642,7 @@
   initMenu();
   markCurrentNav();
   initFeaturedPlans();
+  initNamedPlans();
   initPlanBrowser();
   initContactForm();
   initGallery();

@@ -13,6 +13,8 @@ finishes.html            The four finish series, one category at a time
 how-it-works.html        Five-step process, who does what, budget
 about.html               The owner's story and the service area
 faq.html                 Questions and answers, grouped by topic
+utah-adu-law-sb284.html  Plain-language guide to Utah's detached ADU law (S.B. 284)
+american-fork-adu.html   American Fork's adopted detached ADU rules and plans that fit
 gallery.html             Completed homes and a rendering of every plan, with a lightbox
 contact.html             Mailto contact form, call and email actions
 404.html                 Not-found page
@@ -98,7 +100,7 @@ The checker uses only the Python standard library. It verifies that every intern
 
 ## Structured data
 
-Each page has a minimal `<script type="application/ld+json" id="business-schema">` object with the business name. `main.js` replaces it at load time with the full `LocalBusiness` record built from `config.js`: name, URL, telephone, email and area served. No street address is included. Keeping the contact fields generated from `config.js` avoids duplicating them in six HTML files.
+Each page has a minimal `<script type="application/ld+json" id="business-schema">` object with the business name. `main.js` replaces it at load time with the full `LocalBusiness` record built from `config.js`: name, URL, telephone, email, office address and area served. The office address is the same suite the owner's other businesses use. Keeping the contact fields generated from `config.js` avoids duplicating them in six HTML files.
 
 ## Deploying
 

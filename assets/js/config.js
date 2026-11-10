@@ -15,6 +15,14 @@ window.SITECONFIG = {
   // VERIFY WITH OWNER
   email: "admin@stonewardconstruction.com",
 
+  // Same office address as the owner's other businesses
+  address: {
+    street: "767 S Auto Mall Dr, Suite 14",
+    city: "American Fork",
+    region: "UT",
+    postalCode: "84003"
+  },
+
   // VERIFY WITH OWNER
   serviceArea: "Utah County, Salt Lake County and the Wasatch Front"
 };
