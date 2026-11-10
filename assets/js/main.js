@@ -667,6 +667,57 @@
     });
   }
 
+  function initLeadForms() {
+    var forms = $$("[data-lead-form]");
+    if (!forms.length) { return; }
+    var endpoint = String(config.leadEndpoint || "");
+    forms.forEach(function (form) {
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        var status = $("[data-lead-status]", form);
+        var data = new FormData(form);
+        var email = String(data.get("email") || "").trim();
+        var first = String(data.get("first") || "").trim();
+        if (data.get("company")) { return; }
+        if (!first || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || !form.querySelector("[name=consent]").checked) {
+          status.textContent = "Please add your first name, a valid email and check the box.";
+          return;
+        }
+        var magnet = form.getAttribute("data-magnet") || "guide";
+        var payload = {
+          first: first,
+          email: email,
+          phone: String(data.get("phone") || "").trim(),
+          city: String(data.get("city") || ""),
+          magnet: magnet,
+          page: window.location.pathname
+        };
+        var button = form.querySelector("button[type=submit]");
+        button.disabled = true;
+        status.textContent = "Sending...";
+        function done() { window.location.href = "thank-you?m=" + encodeURIComponent(magnet); }
+        if (!endpoint) {
+          window.location.href = "mailto:" + encodeURIComponent(config.email || "") + "?subject=" + encodeURIComponent("Send me the ADU " + magnet) + "&body=" + encodeURIComponent("Name: " + first + "\nEmail: " + email + "\nCity: " + payload.city);
+          return;
+        }
+        fetch(endpoint, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain" }, body: JSON.stringify(payload) })
+          .then(done, function () { status.textContent = "Something went wrong. Please call or email us and we will send it right away."; button.disabled = false; });
+      });
+    });
+  }
+
+  function initThanks() {
+    var links = $("[data-thanks-links]");
+    if (!links) { return; }
+    var magnet = new URLSearchParams(window.location.search).get("m") || "guide";
+    var files = { guide: ["10-step guide", "downloads/10-steps-to-a-backyard-adu-in-utah.pdf"], worksheet: ["income worksheet", "downloads/backyard-adu-income-worksheet.pdf"], checklist: ["lot checklist", "downloads/backyard-adu-lot-checklist.pdf"] };
+    var pick = files[magnet] || files.guide;
+    links.innerHTML = '<a class="btn btn--primary" href="' + pick[1] + '" download>Download the ' + pick[0] + "</a>";
+    $$("[data-thanks-card]").forEach(function (card) {
+      if (card.getAttribute("data-thanks-card") === magnet) { card.hidden = true; }
+    });
+  }
+
   applyContactDetails();
   injectBusinessSchema();
   initPlanDetail();
@@ -678,6 +729,8 @@
   addPriceNotes();
   initContactForm();
   initGallery();
+  initLeadForms();
+  initThanks();
 })();
 
 

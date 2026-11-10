@@ -21,7 +21,8 @@ from urllib.parse import unquote, urlsplit
 ROOT = Path(__file__).resolve().parent.parent
 SITE_HOSTS = {"www.stonewardconstruction.com", "stonewardconstruction.com"}
 SCHEMA_HOSTS = {"schema.org", "www.schema.org"}
-ALLOWED_URL_HOSTS = SITE_HOSTS | SCHEMA_HOSTS
+LEAD_HOSTS = {"script.google.com"}  # Apps Script web app that receives the free-guide sign-ups
+ALLOWED_URL_HOSTS = SITE_HOSTS | SCHEMA_HOSTS | LEAD_HOSTS
 TEXT_SUFFIXES = {
     ".html",
     ".css",
