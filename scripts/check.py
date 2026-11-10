@@ -23,6 +23,8 @@ SITE_HOSTS = {"www.stonewardconstruction.com", "stonewardconstruction.com"}
 SCHEMA_HOSTS = {"schema.org", "www.schema.org"}
 LEAD_HOSTS = {"script.google.com"}  # Apps Script web app that receives the free-guide sign-ups
 ALLOWED_URL_HOSTS = SITE_HOSTS | SCHEMA_HOSTS | LEAD_HOSTS
+# Official city code and ordinance sources we link to from the city pages.
+OFFICIAL_SOURCE_SUFFIXES = (".gov", ".municipal.codes", ".municipalcodeonline.com", ".codepublishing.com", ".municode.com", ".amlegal.com", ".utah.gov")
 TEXT_SUFFIXES = {
     ".html",
     ".css",
@@ -131,7 +133,7 @@ def check_http_urls() -> None:
         for match in url_pattern.finditer(content):
             url = match.group(0).rstrip(".,;:")
             host = (urlsplit(url).hostname or "").lower()
-            if host not in ALLOWED_URL_HOSTS:
+            if host not in ALLOWED_URL_HOSTS and not host.endswith(OFFICIAL_SOURCE_SUFFIXES):
                 add_issue(
                     f"{path.relative_to(ROOT)}: external URL is not allowed: {url}"
                 )
