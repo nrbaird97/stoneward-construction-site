@@ -9,6 +9,15 @@
   var config = window.SITECONFIG || {};
   var plans = Array.isArray(window.SITE_PLANS) ? window.SITE_PLANS : [];
 
+  // Site search lives in its own file so every page, including regenerated
+  // city pages, gets it without editing each page header.
+  if (!window.__swSearch) {
+    window.__swSearch = true;
+    var searchScript = document.createElement("script");
+    searchScript.src = "assets/js/search.js";
+    document.head.appendChild(searchScript);
+  }
+
   function $(selector, root) {
     return (root || document).querySelector(selector);
   }

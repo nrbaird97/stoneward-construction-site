@@ -2853,3 +2853,80 @@ img { filter: none; }
 .lead-form__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .lead-form__status { min-height: 1.4em; margin: 10px 0 0; color: var(--accent); font-size: 0.9rem; }
 .lead-form .btn { width: 100%; }
+
+/* Site search */
+.search-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  background: var(--card);
+  color: var(--accent);
+  cursor: pointer;
+}
+.search-toggle svg { width: 20px; height: 20px; }
+.search-toggle:hover { border-color: var(--accent); }
+.search-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  padding: 14px 16px 18px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line-strong);
+  box-shadow: var(--shadow-lift);
+  z-index: 60;
+}
+.search-panel[hidden] { display: none; }
+.search-panel__form,
+.search-page__form {
+  display: flex;
+  gap: 10px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.search-page__form { margin: 22px 0 0; }
+.search-panel input[type="search"],
+.search-page__form input[type="search"] {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 14px;
+  font: inherit;
+  color: var(--ink);
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+}
+.search-panel input[type="search"]:focus,
+.search-page__form input[type="search"]:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.search-list {
+  list-style: none;
+  margin: 12px auto 0;
+  padding: 0;
+  max-width: 720px;
+}
+.search-list--page { margin: 12px 0 0; }
+.search-hit {
+  display: grid;
+  gap: 2px;
+  padding: 12px 14px;
+  color: var(--ink);
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+}
+.search-hit:hover,
+.search-hit:focus-visible { background: var(--card); border-color: var(--line-strong); }
+.search-hit__kind { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.search-hit__title { font-weight: 600; }
+.search-hit__desc { font-size: 0.9rem; color: var(--muted); }
+.search-empty,
+.search-more { padding: 12px 14px; color: var(--muted); }
+.search-summary { margin: 14px 0 0; color: var(--muted); }
+@media (max-width: 560px) {
+  .search-panel__form .btn { display: none; }
+}
