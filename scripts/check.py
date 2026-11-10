@@ -108,6 +108,10 @@ def check_internal_refs(page: Path, html: str) -> None:
             continue
 
         stats["refs"] += 1
+        if resolved == ROOT.resolve():
+            resolved = ROOT.resolve() / "index.html"
+        elif not resolved.is_file() and not resolved.suffix:
+            resolved = resolved.with_suffix(".html")
         if not resolved.is_file():
             add_issue(
                 f"{page.relative_to(ROOT)}: missing {attribute} target for {value}"

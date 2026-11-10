@@ -170,9 +170,10 @@
   }
 
   function markCurrentNav() {
-    var page = window.location.pathname.split("/").pop() || "index.html";
+    var page = window.location.pathname.split("/").pop() || "index";
+    page = page.replace(/\.html$/, "");
     $$(".site-nav a[data-nav]").forEach(function (link) {
-      if (link.getAttribute("data-nav") === page) {
+      if (link.getAttribute("data-nav").replace(/\.html$/, "") === page) {
         link.classList.add("is-active");
         link.setAttribute("aria-current", "page");
       }
@@ -205,8 +206,8 @@
     var photo = escapeHtml(plan.photo || "");
     var planImage = escapeHtml(plan.plan || "");
     var name = escapeHtml(plan.name);
-    var requestUrl = "contact.html?plan=" + encodeURIComponent(plan.name);
-    var detailUrl = "plan.html?plan=" + encodeURIComponent(plan.slug || "");
+    var requestUrl = "contact?plan=" + encodeURIComponent(plan.name);
+    var detailUrl = "plan?plan=" + encodeURIComponent(plan.slug || "");
 
     return [
       '<article class="plan-card" data-category="' + escapeHtml(plan.category || "") + '" data-beds-min="' + range.min + '" data-beds-max="' + range.max + '" data-sqft="' + Number(plan.sqft) + '">',
@@ -508,7 +509,7 @@
     $("[data-plan-name]", root).textContent = plan.name;
     $("[data-plan-series]", root).textContent = (plan.series && plan.series !== plan.name ? plan.series + " series" : (plan.category === "home" ? "Home" : "ADU")) + " \u00B7 " + sqft + " sq ft";
     $("[data-plan-about]", root).textContent = plan.about || "";
-    $("[data-plan-cta]", root).setAttribute("href", "contact.html?plan=" + encodeURIComponent(plan.name));
+    $("[data-plan-cta]", root).setAttribute("href", "contact?plan=" + encodeURIComponent(plan.name));
 
     var facts = [
       ["Living area", sqft + " sq ft"],
@@ -577,7 +578,7 @@
         button.className = "gallery__item";
         button.setAttribute("data-full", src);
         button.setAttribute("data-caption", plan.name);
-        button.setAttribute("data-href", "plan.html?plan=" + encodeURIComponent(plan.slug || ""));
+        button.setAttribute("data-href", "plan?plan=" + encodeURIComponent(plan.slug || ""));
         button.innerHTML = '<img src="' + escapeHtml(src) + '" alt="' + escapeHtml(plan.name) + ' rendering" loading="lazy">';
         planGrid.appendChild(button);
       });
