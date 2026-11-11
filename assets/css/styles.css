@@ -2927,6 +2927,9 @@ img { filter: none; }
 .search-empty,
 .search-more { padding: 12px 14px; color: var(--muted); }
 .search-summary { margin: 14px 0 0; color: var(--muted); }
+.nav-search-link { display: none; }
 @media (max-width: 560px) {
   .search-panel__form .btn { display: none; }
+  .search-toggle { display: none; }
+  .nav-search-link { display: block; }
 }

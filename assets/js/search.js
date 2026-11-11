@@ -104,6 +104,15 @@
     button.setAttribute("aria-expanded", "false");
     button.setAttribute("aria-controls", "site-search");
     button.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>';
+    // Phones have no room for a fourth header button, so search lives in the menu there.
+    var siteNav = document.getElementById("site-nav");
+    if (siteNav && !$(".nav-search-link", siteNav)) {
+      var menuLink = document.createElement("a");
+      menuLink.href = "search";
+      menuLink.className = "nav-search-link";
+      menuLink.textContent = "Search";
+      siteNav.insertBefore(menuLink, $(".nav-extra", siteNav) || null);
+    }
     var anchor = $("[data-theme-toggle]", actions);
     actions.insertBefore(button, anchor || actions.firstChild);
 
