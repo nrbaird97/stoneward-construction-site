@@ -24,7 +24,7 @@ SCHEMA_HOSTS = {"schema.org", "www.schema.org"}
 LEAD_HOSTS = {"script.google.com"}  # Apps Script web app that receives the free-guide sign-ups
 ALLOWED_URL_HOSTS = SITE_HOSTS | SCHEMA_HOSTS | LEAD_HOSTS
 # Official city code and ordinance sources we link to from the city pages.
-OFFICIAL_SOURCE_SUFFIXES = (".gov", ".municipal.codes", ".municipalcodeonline.com", ".codepublishing.com", ".municode.com", ".amlegal.com", ".utah.gov")
+OFFICIAL_SOURCE_SUFFIXES = (".gov", ".municipal.codes", ".municipalcodeonline.com", ".codepublishing.com", ".municode.com", ".amlegal.com", ".utah.gov", ".revize.com")
 TEXT_SUFFIXES = {
     ".html",
     ".css",
