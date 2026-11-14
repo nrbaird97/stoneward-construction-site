@@ -137,7 +137,7 @@
   }
 
   function initMenu() {
-    var nav = document.getElementById("site-nav");
+    var nav = document.getElementById("mega-menu") || document.getElementById("site-nav");
     var toggle = $(".nav-toggle");
     if (!nav || !toggle) {
       return;
@@ -171,17 +171,12 @@
       setMenu(false, nav, toggle);
     });
 
-    window.addEventListener("resize", function () {
-      if (window.innerWidth > 900) {
-        setMenu(false, nav, toggle);
-      }
-    });
   }
 
   function markCurrentNav() {
     var page = window.location.pathname.split("/").pop() || "index";
     page = page.replace(/\.html$/, "");
-    $$(".site-nav a[data-nav]").forEach(function (link) {
+    $$(".site-nav a[data-nav], .mega a[data-nav]").forEach(function (link) {
       if (link.getAttribute("data-nav").replace(/\.html$/, "") === page) {
         link.classList.add("is-active");
         link.setAttribute("aria-current", "page");
